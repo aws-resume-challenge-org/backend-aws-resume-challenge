@@ -12,54 +12,6 @@ provider "aws" {
   profile = "test-account"
 }
 
-resource "aws_s3_bucket" "resumeBucket" {
-  bucket                      = "resumebucketcarroll"
-  object_lock_enabled         = false
-  policy                      = jsonencode(
-        {
-          Statement = [
-              {
-                  Action    = "s3:GetObject"
-                  Effect    = "Allow"
-                  Principal = "*"
-                  Resource  = "arn:aws:s3:::resumebucketcarroll/*"
-                  Sid       = "PublicReadGetObject"
-                },
-            ]
-          Version   = "2012-10-17"
-        }
-    )
-  request_payer               = "BucketOwner"
-  tags                        = {}
-  tags_all                    = {}
-
-  grant {
-      id          = "3c5ac80894a6df870c4ba931d96a9ad84e4f50a2dceff24ff6b45cd3fccd91bb"
-      permissions = [
-          "FULL_CONTROL",
-        ]
-      type        = "CanonicalUser"
-    }
-
-  server_side_encryption_configuration {
-      rule {
-          bucket_key_enabled = true
-
-          apply_server_side_encryption_by_default {
-              sse_algorithm     = "AES256"
-            }
-        }
-    }
-
-  versioning {
-      enabled    = true
-      mfa_delete = false
-    }
-
-  website {
-      index_document           = "index.html"
-    }
-}
 
 resource "aws_cloudfront_distribution" "resume_cf_distro" {
   aliases                         = [
@@ -174,7 +126,7 @@ resource "aws_iam_role" "iam_for_lambda" {
   tags_all              = {}
   assume_role_policy    = jsonencode({"Statement": [
                               {
-                                  Effect    = "Allow"
+                                  Effect    = "Allow",
                                   "Action": "sts:AssumeRole",
                                   Principal = {
                                     Service = "lambda.amazonaws.com"
