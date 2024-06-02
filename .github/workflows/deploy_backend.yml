@@ -1,0 +1,71 @@
+name: Deploy Lambda Function with Terraform
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.12.3
+
+    - name: Install dependencies
+      run: |
+        python -m pip install boto3
+        python -m pip install pypi-json
+        pip install requests
+        echo "installs complete"
+
+    - name: Run tests
+      run: python -m unittest discover -s backend-aws-resume-challenge -p 'test_.py'
+
+    - name: tests complete
+      run: echo "tests are complete"s
+
+
+  deploy:
+    needs: test
+    if: ${{ needs.test.result == 'OK' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: configure aws credentials
+          uses: aws-actions/configure-aws-credentials@v3
+          with:
+            role-to-assume: arn:aws:iam::767397862444:role/GitHubActions
+            role-session-name: samplerolesession
+            aws-region: us-west-2
+
+      - name: Set up Terraform
+          uses: hashicorp/setup-terraform@v2
+          with:
+            terraform_version: 1.8.3
+      
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+
+
+
