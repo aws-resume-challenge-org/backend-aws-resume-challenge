@@ -1,4 +1,4 @@
-name: Deploy Lambda Function with Terraform
+name: Run tests on lambda function
 
 on:
   push:
@@ -31,7 +31,7 @@ jobs:
         echo "installs complete"
 
     - name: Run tests
-      run: python -m unittest backend-aws-resume-challenge\test_lambda_function.py
+      run: python -m unittest test_lambda_function.py
 
     - name: tests complete
       run: echo "tests are complete"s
