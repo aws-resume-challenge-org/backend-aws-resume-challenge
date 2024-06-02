@@ -2,7 +2,7 @@ import json
 import boto3
 
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource('dynamodb', region_name='us-west-2')
 table = dynamodb.Table('visitor_count_table')
 
 def lambda_handler(event, context):
