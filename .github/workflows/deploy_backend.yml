@@ -37,34 +37,5 @@ jobs:
       run: echo "tests are complete"s
 
 
-  deploy:
-    needs: test
-    if: ${{ needs.test.result == 'OK' }}
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: configure aws credentials
-          uses: aws-actions/configure-aws-credentials@v4
-          with:
-            role-to-assume: arn:aws:iam::767397862444:role/GitHubActions
-            aws-region: us-west-2
-
-      - name: Set up Terraform
-          uses: hashicorp/setup-terraform@v2
-          with:
-            terraform_version: 1.8.3
-      
-      - name: Terraform Init
-        run: terraform init
-
-      - name: Terraform Plan
-        run: terraform plan
-
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
-
 
 
