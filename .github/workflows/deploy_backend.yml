@@ -1,41 +1,20 @@
-name: Run tests on lambda function
+name: Run tests on lambda function with cypress
 
 on:
   push:
     branches:
       - main
 
-permissions:
-  id-token: write
-  contents: read
-
 jobs:
-  test:
-    name: Run Tests
-    runs-on: ubuntu-latest
-
+  cypress-run:
+    runs-on: ubuntu-22.04
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.12.3
-
-    - name: Install dependencies
-      run: |
-        python -m pip install boto3
-        python -m pip install pypi-json
-        pip install requests
-        echo "installs complete"
-
-    - name: Run tests
-      run: python -m unittest test_lambda_function.py
-
-    - name: tests complete
-      run: echo "tests are complete"s
-
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
 
 
 
