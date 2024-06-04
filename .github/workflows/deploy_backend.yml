@@ -40,8 +40,6 @@ jobs:
 
 
     teraform-deploy:
-  #    needs: cypress-run
-  #    needs: package-lambda
       runs-on: ubuntu-latest
 
       permissions:
