@@ -17,7 +17,7 @@ jobs:
         uses: cypress-io/github-action@v6
 
   package_lambda:
-    runs on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -35,7 +35,7 @@ jobs:
 
       - name: Create Lambda function ZIP file
         run: |
-          zip backend-aws-resume-challenge\terraform-resume\lambda_function_payload.zip backend-aws-resume-challenge/lambda_function.py
+          zip -r9 backend-aws-resume-challenge\terraform-resume\lambda_function_payload.zip backend-aws-resume-challenge/lambda_function.py
 
 
 
