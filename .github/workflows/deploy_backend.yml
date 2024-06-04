@@ -74,7 +74,7 @@ jobs:
 
       - name: Plan Terraform changes
         run: terraform plan
-        working-directory: backend-aws-resume-challenge/terraform-resume
+        working-directory: terraform-resume
 
       - name: Apply Terraform changes
         if: github.ref == 'refs/heads/main'
