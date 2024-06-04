@@ -64,14 +64,18 @@ jobs:
           terraform_version: 1.8.3
 
       - name: Initialize Terraform
+        working-directory: backend-aws-resume-challenge/terraform-resume
         run: terraform init
 
       - name: Validate Terraform
+        working-directory: backend-aws-resume-challenge/terraform-resume
         run: terraform validate
 
       - name: Plan Terraform changes
+        working-directory: backend-aws-resume-challenge/terraform-resume
         run: terraform plan
 
       - name: Apply Terraform changes
         if: github.ref == 'refs/heads/main'
+        working-directory: backend-aws-resume-challenge/terraform-resume
         run: terraform apply -auto-approve
