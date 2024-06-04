@@ -17,6 +17,7 @@ jobs:
         uses: cypress-io/github-action@v6
 
   package_lambda:
+    needs: cypress-run
     runs-on: ubuntu-latest
 
     steps:
@@ -24,7 +25,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Set up python
-        uses: action/setup-python@v4
+        uses: action/setup-python@v5
         with:
           python-version: 3.12.3
 
