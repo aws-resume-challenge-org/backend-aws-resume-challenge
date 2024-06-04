@@ -53,7 +53,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Debug working directory contents
-        run: ls -la $GITHUB_WORKSPACE/backend-aws-resume-challenge/terraform-resume
+        run: ls
     
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
