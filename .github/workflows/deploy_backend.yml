@@ -16,7 +16,7 @@ jobs:
   #    - name: Cypress run
   #      uses: cypress-io/github-action@v6
 
-  #package_lambda:
+  #package-lambda:
     # needs: cypress-run
   #  runs-on: ubuntu-latest
 
@@ -40,8 +40,8 @@ jobs:
 
 
     teraform-deploy:
-  #    needs: cypress run
-  #    needs: package lambda
+  #    needs: cypress-run
+  #    needs: package-lambda
       runs-on: ubuntu-latest
 
       permissions:
