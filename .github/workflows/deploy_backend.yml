@@ -65,6 +65,7 @@ jobs:
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.8.3
+          terraform_working_dir: backend-aws-resume-challenge/terraform-resume
 
       - name: Initialize Terraform
         run: terraform init
