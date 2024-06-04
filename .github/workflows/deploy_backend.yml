@@ -68,9 +68,11 @@ jobs:
 
       - name: Initialize Terraform
         run: terraform init
+        working-directory: terraform-resume
 
       - name: Validate Terraform
         run: terraform validate
+        working-directory: terraform-resume
 
       - name: Plan Terraform changes
         run: terraform plan
@@ -79,3 +81,4 @@ jobs:
       - name: Apply Terraform changes
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
+        working-directory: terraform-resume
