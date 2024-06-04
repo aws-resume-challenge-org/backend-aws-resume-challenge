@@ -16,7 +16,6 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
 
-jobs:
   package_lambda:
     runs on: ubuntu-latest
 
