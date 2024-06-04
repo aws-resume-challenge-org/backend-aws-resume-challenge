@@ -15,11 +15,6 @@ describe('DynamoDb Update Test', () => {
 
       cy.visit("https://rcarrollresume.com/")
       expect(cy.contains(nextCall))
-    })
-
-
-    
-    
+    }) 
   })
-  
 })

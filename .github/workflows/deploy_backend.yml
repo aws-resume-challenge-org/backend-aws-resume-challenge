@@ -1,4 +1,4 @@
-name: Run tests on lambda function with cypress
+name: Run tests on lambda function with cypress packages up the lambda function with the required dependencies and then deploys it to AWS with Terraform
 
 on:
   push:
@@ -15,6 +15,28 @@ jobs:
       # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v6
+
+jobs:
+  package_lambda:
+    runs on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: action/setup-python@v4
+        with:
+          python-version: 3.12.3
+
+      - name: install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install boto3
+
+      - name: Create Lambda function ZIP file
+        run: |
+          zip backend-aws-resume-challenge\terraform-resume\lambda_function_payload.zip backend-aws-resume-challenge/lambda_function.py
 
 
 
