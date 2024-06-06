@@ -39,65 +39,27 @@ jobs:
   #        zip -r9 terraform-resume/lambda_function_payload.zip . -i lambda_function.py
 
 
-  #terraform-deploy:
+  terraform-deploy:
   #  needs: cypress-run
   #  needs: package-lambda
-  #  runs-on: ubuntu-latest
-
-  #  permissions:
-  #    id-token: write
-  #    contents: read
-
-  #  steps:
-  #    - name: Checkout code
-  #      uses: actions/checkout@v4
-
-  #    - name: Debug working directory contents
-  #      run: ls
-    
-  #    - name: Configure AWS Credentials
-  #      uses: aws-actions/configure-aws-credentials@v4
-  #      with:
-  #        role-to-assume: ${{ secrets.AWS_ROLE }}
-  #        aws-region: us-west-2
-      
-  #    - name: Set up Terraform
-  #      uses: hashicorp/setup-terraform@v2
-  #      with:
-  #        terraform_version: 1.8.3
-
-  #    - name: Initialize Terraform
-  #      run: terraform init
-  #      working-directory: terraform-resume
-
-  #    - name: Validate Terraform
-  #      run: terraform validate
-  #      working-directory: terraform-resume
-
-  #    - name: Plan Terraform changes
-  #      run: terraform plan
-  #      working-directory: terraform-resume
-
-  #    - name: Apply Terraform changes
-  #      if: github.ref == 'refs/heads/main'
-  #      run: terraform apply -auto-approve
-  #      working-directory: terraform-resume
-  import-terraform:
     runs-on: ubuntu-latest
 
     permissions:
       id-token: write
       contents: read
-    
-    steps:  
+
+    steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Debug working directory contents
+        run: ls
+    
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-            role-to-assume: ${{ secrets.AWS_ROLE }}
-            aws-region: us-west-2
+          role-to-assume: ${{ secrets.AWS_ROLE }}
+          aws-region: us-west-2
       
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
@@ -111,6 +73,46 @@ jobs:
       - name: Validate Terraform
         run: terraform validate
         working-directory: terraform-resume
+
+      - name: Plan Terraform changes
+        run: terraform plan
+        working-directory: terraform-resume
+
+      - name: Apply Terraform changes
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
+        working-directory: terraform-resume
+  
+  
+  #import-terraform:
+  #  runs-on: ubuntu-latest
+
+  #  permissions:
+  #    id-token: write
+  #    contents: read
+    
+  #  steps:  
+  #    - name: Checkout code
+  #      uses: actions/checkout@v4
+
+  #    - name: Configure AWS Credentials
+  #      uses: aws-actions/configure-aws-credentials@v4
+  #      with:
+  #          role-to-assume: ${{ secrets.AWS_ROLE }}
+  #          aws-region: us-west-2
+      
+  #    - name: Set up Terraform
+  #      uses: hashicorp/setup-terraform@v2
+  #      with:
+  #        terraform_version: 1.8.3
+
+  #    - name: Initialize Terraform
+  #      run: terraform init
+  #      working-directory: terraform-resume
+
+  #    - name: Validate Terraform
+  #      run: terraform validate
+  #      working-directory: terraform-resume
 
       #- name: Import Cloudfront Distro
       #  run: terraform import aws_cloudfront_distribution.resume_cf_distro E2E12TP6LTG1FT
@@ -128,8 +130,8 @@ jobs:
       #  run: terraform import aws_lambda_function.CountVisitorsFunction_lambda CountVisitorsFunction
       #  working-directory: terraform-resume
 
-      - name: Import IAM Role for Lambda
-        run: terraform import aws_iam_role.iam_for_lambda CountVisitorsFunction-role-ovlfetzh
-        working-directory: terraform-resume
+      #- name: Import IAM Role for Lambda
+      #  run: terraform import aws_iam_role.iam_for_lambda CountVisitorsFunction-role-ovlfetzh
+      #  working-directory: terraform-resume
         
         
