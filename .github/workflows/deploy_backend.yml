@@ -114,17 +114,22 @@ jobs:
 
       - name: Import Cloudfront Distro
         run: terraform import aws_cloudfront_distribution.resume_cf_distro E2E12TP6LTG1FT
+        working-directory: terraform-resume
 
       - name: Import Dynamodb
         run: terraform import aws_dynamodb_table.visitor_count_table visitor_count_table
+        working-directory: terraform-resume
 
       - name: Import API Gateway
         run: terraform import aws_apigatewayv2_api.visitors_API 7vgsgyibz8
+        working-directory: terraform-resume
 
       - name: Import Lambda
-        run: terraform import aws_lambda_function.CountVisitorsFunction_lambda CountVisitorFunction 
+        run: terraform import aws_lambda_function.CountVisitorsFunction_lambda CountVisitorFunction
+        working-directory: terraform-resume
 
       - name: Import IAM Role for Lambda
         run: terraform import aws_iam_role.iam_for_lambda CountVisitorsFunction-role-ovlfetzh
+        working-directory: terraform-resume
         
         
