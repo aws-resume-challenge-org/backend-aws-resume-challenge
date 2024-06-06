@@ -9,7 +9,8 @@ terraform {
  
 provider "aws" {
   region  = "us-west-2"
-  profile = "test-account"
+  # Commenting out the profile I am using for github action OIDC
+  # profile = "test-account"
 }
 
 
