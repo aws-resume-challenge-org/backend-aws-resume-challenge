@@ -125,7 +125,7 @@ jobs:
         working-directory: terraform-resume
 
       - name: Import Lambda
-        run: terraform import aws_lambda_function.CountVisitorsFunction_lambda CountVisitorFunction
+        run: terraform import aws_lambda_function.CountVisitorsFunction_lambda CountVisitorsFunction
         working-directory: terraform-resume
 
       - name: Import IAM Role for Lambda
