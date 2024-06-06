@@ -82,7 +82,6 @@ jobs:
   #      if: github.ref == 'refs/heads/main'
   #      run: terraform apply -auto-approve
   #      working-directory: terraform-resume
-  
   import-terraform:
     runs-on: ubuntu-latest
 
