@@ -84,6 +84,7 @@ resource "aws_dynamodb_table" "visitor_count_table" {
   name                        = "visitor_count_table"
   stream_enabled              = true
   stream_view_type            = "NEW_AND_OLD_IMAGES"
+  hash_key                    = "UserId"
 
   attribute {
     name = "id"
