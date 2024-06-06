@@ -83,6 +83,7 @@ resource "aws_dynamodb_table" "visitor_count_table" {
   billing_mode                = "PAY_PER_REQUEST"
   name                        = "visitor_count_table"
   stream_enabled              = true
+  stream_view_type            = "NEW_AND_OLD_IMAGES"
 
   attribute {
     name = "id"
